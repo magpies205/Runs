@@ -1,0 +1,574 @@
+/* ==========================================================================
+   Cozy Scrapbook & Astronomy Theme Core Setup
+   ========================================================================== */
+:root {
+    --bg-dark: #050816;
+    --bg-light-blue: #0D1B3D;
+    --nebula: #3B2C68;
+    --gold: #F7C75A;
+    --dusty-blue: #7FA8D8;
+    --forest-green: #5B775D;
+    --cream: #F8F5EF;
+    --charcoal: #2B2B2B;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: linear-gradient(135deg, 
+        #03050d 0%, 
+        #0d1b3d 40%, 
+        #5a1c4e 70%, 
+        #21123a 100%
+    );
+    background-attachment: fixed;
+    color: var(--cream);
+    font-family: "Lora", serif;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.stars-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(1.5px 1.5px at 20px 30px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 40px 70px, #fff, rgba(255,255,255,0.15)),
+        radial-gradient(1px 1px at 75px 15px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 110px 85px, #ffb3d9, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 160px 120px, var(--dusty-blue), rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 200px 160px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 230px 190px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2.5px 2.5px at 280px 270px, var(--gold), rgba(0,0,0,0));
+    background-size: 200px 200px, 130px 130px, 90px 90px, 180px 180px, 250px 250px;
+    opacity: 0.85;
+    z-index: 0;
+    animation: backgroundTwinkle 5s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes backgroundTwinkle { 
+    0% { opacity: 0.7; transform: scale(1); } 
+    100% { opacity: 0.95; transform: scale(1.01); } 
+}
+
+/* Shooting Stars */
+.stars-overlay::before,
+.stars-overlay::after {
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(-45deg, rgba(255,255,255,0) 0%, rgba(247,199,90,0.9) 50%, white 100%);
+    filter: drop-shadow(0 0 6px rgba(247,199,90,0.5));
+    opacity: 0;
+}
+.stars-overlay::before { top: 10%; left: 80%; animation: shootingStarOne 14s ease-in-out infinite; }
+.stars-overlay::after { top: 35%; left: 90%; animation: shootingStarTwo 19s ease-in-out infinite; animation-delay: 6s; }
+
+@keyframes shootingStarOne {
+    0% { transform: translate(0, 0) rotate(-35deg) scale(0); opacity: 0; }
+    4% { opacity: 1; transform: translate(-300px, 210px) rotate(-35deg) scale(1); }
+    8% { transform: translate(-600px, 420px) rotate(-35deg) scale(0); opacity: 0; }
+    100% { transform: translate(-600px, 420px) rotate(-35deg) scale(0); opacity: 0; }
+}
+@keyframes shootingStarTwo {
+    0% { transform: translate(0, 0) rotate(-40deg) scale(0); opacity: 0; }
+    3% { opacity: 1; transform: translate(-350px, 290px) rotate(-40deg) scale(1.2); }
+    6% { transform: translate(-700px, 580px) rotate(-40deg) scale(0); opacity: 0; }
+    100% { transform: translate(-700px, 580px) rotate(-40deg) scale(0); opacity: 0; }
+}
+
+/* Header & Nav */
+header { position: relative; z-index: 10; padding: 2rem; }
+.nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+.logo { font-size: 2rem; color: var(--gold); }
+.nav-links { display: flex; list-style: none; gap: 2rem; }
+.nav-links a { color: var(--dusty-blue); text-decoration: none; transition: color 0.3s; }
+.nav-links a:hover { color: var(--gold); }
+
+/* ==========================================================================
+   UPDATED: Custom Star-Chain Constellation Borders
+   ========================================================================== */
+.cosmic-border {
+    position: relative;
+    /* Uses an SVG data string to repeat real star glyphs directly as the border line */
+    border: 12px solid transparent;
+    border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ctext x='50%25' y='55%25' font-size='12' text-anchor='middle' dominant-baseline='middle' fill='%23F7C75A'%3E✦%3C/text%3E%3C/svg%3E") 28 repeat;
+    
+    /* Adds a soft stellar dust glow surrounding the card frame */
+    box-shadow: 
+        0 10px 35px rgba(0,0,0,0.6), 
+        0 0 20px rgba(247, 199, 90, 0.15),
+        inset 0 0 15px rgba(247, 199, 90, 0.08);
+}
+
+.cosmic-border {
+    position: relative;
+    /* Create room for our star chain border layout */
+    padding: 3.5rem !important; 
+    border: 3px double rgba(247, 199, 90, 0.3);
+    border-radius: 6px;
+    
+    /* Cosmic stardust card glow */
+    box-shadow: 
+        0 12px 40px rgba(0,0,0,0.6), 
+        0 0 25px rgba(247, 199, 90, 0.2);
+}
+
+/* ==========================================================================
+    FIXED: Perfect Non-Clipping Star Frame
+   ========================================================================== */
+.cosmic-border::before {
+    content: "";
+    position: absolute;
+    /* Adjust these to position the star chain exactly where you want it inside the border */
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    pointer-events: none;
+    
+    /* SVG Diamond Star Code */
+    --star-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Ctext x='50%25' y='53%25' font-size='16' text-anchor='middle' dominant-baseline='middle' fill='%23F7C75A'%3E✦%3C/text%3E%3C/svg%3E");
+
+    /* Render tracks along the 4 edges */
+    background-image: var(--star-svg), var(--star-svg), var(--star-svg), var(--star-svg);
+    
+    /* Position each track neatly along its respective edge */
+    background-position: top left, bottom left, top left, top right;
+    
+    /* MAGIC HAPPENS HERE: 'round' ensures an exact integer number of stars fit perfectly */
+    background-repeat: round no-repeat, round no-repeat, no-repeat round, no-repeat round;
+    
+    background-size: 20px 20px;
+}
+/* Hero Section */
+.hero-section { display: flex; justify-content: center; padding-top: 4rem; padding-bottom: 2rem; }
+.hero-paper { background: var(--cream); color: var(--charcoal); padding: 3rem; border-radius: 4px; display: flex; max-width: 900px; gap: 3rem; align-items: center; position: relative; }
+
+.tape { position: absolute; width: 100px; height: 30px; background: rgba(247, 199, 90, 0.4); backdrop-filter: blur(1px); }
+.tape.top-left { top: -10px; left: -20px; transform: rotate(-35deg); }
+.tape.top-center { top: -15px; left: 35%; transform: rotate(4deg); background: rgba(127, 168, 216, 0.5); }
+.tape.top-right { top: -10px; right: -10px; transform: rotate(25deg); background: rgba(91, 119, 93, 0.4); }
+
+.polaroid-container { background: white; padding: 15px 15px 55px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); transform: rotate(-3deg); flex-shrink: 0; position: relative; }
+.slideshow-wrapper { position: relative; width: 280px; height: 320px; overflow: hidden; }
+.slideshow-wrapper .hero-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; filter: sepia(0.15) contrast(0.95); opacity: 0; transition: opacity 1s ease-in-out; z-index: 1; }
+.slideshow-wrapper .hero-img.active { opacity: 1; z-index: 2; }
+.hero-img { width: 280px; height: 320px; object-fit: cover; filter: sepia(0.15) contrast(0.95); }
+.hero-date { position: absolute; bottom: 12px; right: 20px; font-size: 1.5rem; color: #555; z-index: 3; }
+
+.hero-text h1 { font-size: 3.5rem; line-height: 1; color: var(--forest-green); margin-bottom: 0.5rem; }
+.hero-text h2 { font-size: 1.4rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.5rem; }
+.hero-text blockquote { font-style: italic; border-left: 3px solid var(--gold); padding-left: 1rem; margin-bottom: 2rem; color: #555; }
+.btn { display: inline-block; padding: 0.6rem 1.5rem; background: var(--bg-light-blue); color: var(--cream); text-decoration: none; font-size: 1.5rem; border-radius: 20px; transition: transform 0.3s, box-shadow 0.3s; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(247, 199, 90, 0.4); }
+
+/* Orbit Layout */
+/* ==========================================================================
+   Orbit Layout & Interactive Progress Stars
+   ========================================================================== */
+.progress-section { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    width: 100%; 
+    padding-top: 4rem; 
+    padding-bottom: 2rem; 
+}
+
+.orbit-wrapper { 
+    position: relative; 
+    width: 800px; 
+    height: 800px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin: 0 auto; 
+}
+
+.progress-center-text { 
+    text-align: center; 
+    position: relative; 
+    z-index: 5; 
+}
+
+.progress-center-text h2 { 
+    font-size: 2.8rem; 
+    color: var(--gold); 
+    line-height: 1.1; 
+}
+
+.progress-center-text p { 
+    color: var(--dusty-blue); 
+    font-size: 1.2rem; 
+    margin-top: 0.5rem; 
+}
+
+.constellation-orbit { 
+    position: absolute; 
+    width: 100%; 
+    height: 100%; 
+    border: 1px dashed rgba(255, 255, 255, 0.08); 
+    border-radius: 50%; 
+}
+
+/* Base styling for all stars */
+.constellation-orbit .star { 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    width: 110px; 
+    height: 75px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    text-align: center; 
+    font-size: 1.2rem; 
+    text-decoration: none; 
+    
+    /* Mathematical circular placement mapping */
+    transform: translate(-50%, -50%) 
+               rotate(calc(360deg / 50 * var(--i))) 
+               translateY(-370px) 
+               rotate(calc(-360deg / 50 * var(--i))); 
+               
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                color 0.2s ease, 
+                text-shadow 0.2s ease; 
+    z-index: 2; 
+}
+
+/* --- Interactive Lit Stars --- */
+.star.lit { 
+    color: var(--gold); 
+    text-shadow: 0 0 10px rgba(247, 199, 90, 0.6); 
+    cursor: pointer; /* Explicitly shows a pointer finger on desktop */
+    animation: starPulse 3s ease-in-out infinite alternate;
+}
+
+.star .label { 
+    font-size: 0.85rem; 
+    margin-bottom: 2px; 
+    letter-spacing: 0.5px; 
+    color: var(--dusty-blue); 
+    transition: color 0.2s, font-weight 0.2s; 
+}
+
+.star.lit .label { 
+    color: var(--gold); 
+    font-weight: bold; 
+}
+
+/* Hover/Focus adjustments for lit stars */
+.constellation-orbit .star.lit:hover { 
+    transform: translate(-50%, -50%) 
+               rotate(calc(360deg / 50 * var(--i))) 
+               translateY(-370px) 
+               rotate(calc(-360deg / 50 * var(--i))) 
+               scale(1.4); /* Pops forward cleanly */
+    color: #fff;
+    text-shadow: 0 0 15px var(--gold), 0 0 25px var(--gold);
+    z-index: 20; 
+}
+
+.star.lit:hover .label { 
+    color: #fff; 
+    text-shadow: 0 0 8px var(--gold);
+}
+
+/* --- Dim / Locked States --- */
+.star.dim { 
+    color: rgba(255, 255, 255, 0.2); 
+    cursor: default; /* Dim stars indicate they aren't links yet */
+}
+
+.star.dim:hover { 
+    color: rgba(255, 255, 255, 0.6); 
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3); 
+}
+
+.star.dim:hover .label { 
+    color: var(--dusty-blue); 
+}
+
+/* Slow cosmic shimmer animation for unlocked landmarks */
+@keyframes starPulse {
+    0% { text-shadow: 0 0 8px rgba(247, 199, 90, 0.5); }
+    100% { text-shadow: 0 0 18px rgba(247, 199, 90, 0.9), 0 0 25px rgba(247, 199, 90, 0.4); }
+}
+
+/* ==========================================================================
+   Cosmic Page Navigation Dividers
+   ========================================================================== */
+.mountain-divider { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    width: 100%; 
+    max-width: 900px;
+    margin: 4rem auto; 
+    clear: both; 
+}
+
+/* Elegant dashed line expanding outwards from the moon node */
+.divider-line {
+    flex: 1;
+    height: 1px;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+}
+
+/* The interactive Moon action element container */
+.cosmic-return {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2rem;
+    text-decoration: none;
+    color: var(--dusty-blue);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Bright shining moon glow effects */
+.cosmic-return .moon-icon {
+    font-size: 2rem;
+    color: var(--gold);
+    text-shadow: 0 0 10px rgba(247, 199, 90, 0.4);
+    margin-bottom: 0.3rem;
+    transition: text-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.cosmic-return .return-text {
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
+    transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hover Interactivity Animations */
+.cosmic-return:hover {
+    transform: scale(1.15);
+}
+
+.cosmic-return:hover .moon-icon {
+    text-shadow: 0 0 20px var(--gold), 0 0 30px var(--gold);
+    transform: rotate(-15deg); /* Playful little tilt action */
+}
+
+.cosmic-return:hover .return-text {
+    color: white;
+    opacity: 1;
+}
+
+/* Cleaned Progress Map Display */
+.map-section { display: flex; justify-content: center; padding-top: 1rem; padding-bottom: 3rem; }
+.map-paper { background: var(--cream); color: var(--charcoal); padding: 2.5rem; max-width: 900px; width: 100%; border-radius: 4px; }
+.map-paper h2 { margin-bottom: 0.2rem; text-align: center; font-size: 2.5rem; color: var(--bg-light-blue); }
+.map-subtitle { text-align: center; font-style: italic; color: #555; margin-bottom: 1.5rem; font-size: 1rem; }
+.map-wrapper { position: relative; width: 100%; }
+
+.custom-map-img { width: 100%; height: auto; display: block; border-radius: 4px; filter: sepia(0.05); border: 1px solid #ddd; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.map-journal-card { position: absolute; bottom: 20px; right: 20px; background: white; padding: 1.2rem; width: 230px; box-shadow: 3px 3px 18px rgba(0,0,0,0.2); border-left: 4px solid var(--forest-green); border-radius: 2px; }
+
+/* ==========================================================================
+   NEW: Astronomy Scrapbook Timeline Section
+   ========================================================================== */
+.timeline-section { padding: 4rem 2rem; width: 100%; max-width: 1000px; margin: 0 auto; position: relative; }
+.section-subtitle { text-align: center; color: var(--dusty-blue); font-style: italic; margin-top: -1rem; margin-bottom: 3rem; }
+
+.timeline-container { position: relative; width: 100%; margin-top: 2rem; }
+
+/* Central stardust rail line */
+.timeline-line { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: linear-gradient(to bottom, var(--gold) 0%, var(--nebula) 70%, rgba(255,255,255,0.1) 100%); transform: translateX(-50%); z-index: 1; }
+
+.timeline-item { position: relative; width: 50%; padding: 1rem 2.5rem; z-index: 2; box-sizing: border-box; }
+.timeline-item.left { left: 0; text-align: right; }
+.timeline-item.right { left: 50%; text-align: left; }
+
+/* Node points */
+.timeline-dot { position: absolute; top: 1.8rem; width: 24px; height: 24px; background: var(--bg-dark); border: 2px solid var(--gold); color: var(--gold); font-size: 0.8rem; display: flex; align-items: center; justify-content: center; border-radius: 50%; z-index: 5; text-shadow: 0 0 5px var(--gold); box-shadow: 0 0 8px var(--gold); }
+.timeline-item.left .timeline-dot { right: -12px; }
+.timeline-item.right .timeline-dot { left: -12px; }
+
+/* Timeline Paper Cards */
+.timeline-content { background: var(--cream); color: var(--charcoal); padding: 1.5rem; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); position: relative; transition: transform 0.3s; }
+.timeline-content:hover { transform: translateY(-3px); }
+.timeline-date { display: block; font-size: 1.4rem; color: var(--forest-green); margin-bottom: 0.2rem; }
+.timeline-content h3 { font-size: 2rem; color: var(--bg-light-blue); margin-bottom: 0.2rem; line-height: 1; }
+.timeline-details { font-size: 0.85rem; font-weight: bold; color: #666; margin-bottom: 0.6rem; }
+.timeline-link { display: inline-block; margin-top: 0.8rem; text-decoration: none; color: var(--forest-green); font-size: 1.2rem; }
+.timeline-link:hover { color: var(--gold); }
+
+/* Journal & Scrapbook Base Styling */
+.section-title { text-align: center; font-size: 3rem; color: var(--gold); margin-bottom: 1.5rem; }
+.journal-container { display: flex; justify-content: center; padding: 2rem; }
+.journal-card { background: var(--cream); color: var(--charcoal); padding: 2.5rem; max-width: 650px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); position: relative; }
+.journal-header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dashed #ccc; padding-bottom: 0.5rem; }
+.journal-header h3 { font-size: 2.5rem; color: var(--bg-light-blue); }
+.location { color: var(--forest-green); font-weight: bold; margin: 0.5rem 0; }
+.stats-badge { font-size: 0.9rem; background: #e2decb; display: inline-block; padding: 3px 10px; border-radius: 12px; margin-bottom: 1.5rem; }
+.entry-text { line-height: 1.6; }
+
+/* ==========================================================================
+   FIXED: Scrapbook Gallery & Overlays Layout
+   ========================================================================== */
+.scrapbook-gallery { 
+    display: flex; 
+    justify-content: center; 
+    gap: 3rem; 
+    flex-wrap: wrap; 
+    padding: 4rem 2rem; 
+}
+
+.scrapbook-item { 
+    background: white; 
+    padding: 12px 12px 15px 12px; /* Bottom padding adjusted for natural text flow */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4); 
+    position: relative; 
+    transition: transform 0.4s ease; 
+    
+    /* Forces elements inside to stack vertically & line up perfectly */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.scrapbook-item img { 
+    width: 240px; 
+    height: 240px; 
+    object-fit: cover; 
+    display: block;
+}
+
+/* FIXED: Changed from absolute to natural flow with clean margins */
+.scrapbook-item .caption { 
+    color: var(--charcoal); 
+    font-size: 1.3rem; 
+    margin-top: 15px; 
+    text-align: center;
+    width: 100%;
+}
+
+.tilt-left { transform: rotate(-5deg); }
+.tilt-right { transform: rotate(4deg); }
+.scrapbook-item:hover { transform: rotate(0deg) scale(1.05); z-index: 5; }
+
+/* DECORATIONS: Forced to float safely on top without altering layout flow */
+.tape {
+    position: absolute; 
+    width: 100px; 
+    height: 30px; 
+    background: rgba(247, 199, 90, 0.4); 
+    backdrop-filter: blur(1px); 
+    z-index: 10;
+}
+.tape.top-center { 
+    top: -15px; 
+    left: 50%; 
+    transform: translateX(-50%) rotate(4deg); 
+    background: rgba(127, 168, 216, 0.5); 
+}
+.tape.top-right-angle {
+    top: -10px;
+    right: -15px;
+    transform: rotate(30deg);
+    background: rgba(91, 119, 93, 0.5);
+}
+
+.coffee-stain { 
+    position: absolute; 
+    top: 15px; 
+    right: 15px; 
+    width: 65px; 
+    height: 65px; 
+    background: rgba(139, 90, 43, 0.12); 
+    border-radius: 50%; 
+    border: 2px dashed rgba(139, 90, 43, 0.18); 
+    pointer-events: none; 
+    z-index: 10;
+}
+
+footer { text-align: center; padding: 4rem 2rem; background: rgba(5, 8, 22, 0.8); margin-top: 5rem; }
+footer p { max-width: 600px; margin: 0 auto 1.5rem auto; font-style: italic; color: var(--dusty-blue); }
+
+/* Responsive adjustments for mobile timeline alignment */
+@media (max-width: 768px) {
+    .timeline-line { left: 30px; }
+    .timeline-item { width: 100%; padding-left: 70px; padding-right: 15px; }
+    .timeline-item.left { text-align: left; left: 0; }
+    .timeline-item.right { left: 0; }
+    .timeline-item.left .timeline-dot,
+    .timeline-item.right .timeline-dot { left: 18px; right: auto; }
+}
+
+/* ==========================================================================
+   Mobile Optimization Overrides (For Phones)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* 1. Prevent the main container from growing wider than the phone screen */
+    body, main {
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    /* 2. Stack the Hero section vertically so the text drops below the images */
+    .hero-paper {
+        flex-direction: column !important;
+        padding: 1.5rem !important;
+        gap: 2rem;
+    }
+
+    .polaroid-container, .hero-text {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* 3. Scale down your custom orbital tracker map so it doesn't clip off-screen */
+    .constellation-orbit {
+        transform: scale(0.75); /* Safely shrinks the star circle layout */
+        transform-origin: center center;
+        margin: 2rem auto !important;
+    }
+
+    .orbit-wrapper {
+        padding: 2rem 0;
+        overflow: hidden;
+    }
+
+    /* 4. Make sure navigation links wrap neatly instead of stretching out */
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        padding: 0 1rem;
+    }
+
+    /* 5. Clean up your scrapbook gallery rows */
+    .scrapbook-gallery {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .scrapbook-item {
+        width: 90% !important;
+        transform: none !important; /* Disables high tilts so they fit comfortably */
+        margin: 0 auto;
+    }
+}
