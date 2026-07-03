@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Montana Run | Running Across America</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+    <style>
+        /* ==========================================================================
+           State Page Specific Styling
+           ========================================================================== */
+        .state-container {
+            max-width: 950px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--dusty-blue);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        .back-link:hover {
+            color: var(--gold);
+        }
+
+        /* Scrapbook Journal Entry Paper Layout */
+        .journal-paper {
+            background: var(--cream);
+            color: var(--charcoal);
+            padding: 3.5rem;
+            border-radius: 4px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            position: relative;
+            margin-bottom: 4rem;
+        }
+
+        .state-header {
+            border-bottom: 2px dashed #d1c9b8;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .state-header h1 {
+            font-size: 4.5rem;
+            color: var(--bg-light-blue);
+            line-height: 0.9;
+        }
+
+        .run-number {
+            font-size: 1.8rem;
+            color: var(--forest-green);
+            transform: rotate(-3deg);
+        }
+
+        /* Trail Stats Grid Box */
+        .stats-notebook {
+            background: #f2ede2;
+            border-left: 5px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .stat-item h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #777;
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-item p {
+            font-size: 1.5rem;
+            color: var(--charcoal);
+            font-weight: bold;
+        }
+
+        .long-story {
+            line-height: 1.8;
+            font-size: 1.15rem;
+            margin-bottom: 2rem;
+            text-align: justify;
+        }
+
+        .long-story p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Polaroid Photo Gallery Grid */
+        .state-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .polaroid-frame {
+            background: white;
+            padding: 15px 15px 50px 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .polaroid-frame img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            filter: sepia(0.1) contrast(0.98);
+        }
+
+        .polaroid-frame .caption {
+            position: absolute;
+            bottom: 12px;
+            left: 15px;
+            right: 15px;
+            text-align: center;
+            font-size: 1.5rem;
+            color: #444;
+        }
+
+        /* Playful overlapping layout tilts */
+        .tilt-l { transform: rotate(-3deg); }
+        .tilt-r { transform: rotate(2.5deg); }
+        .polaroid-frame:hover { transform: rotate(0deg) scale(1.03); z-index: 5; }
+    </style>
+</head>
+<body>
+
+    <div class="stars-overlay"></div>
+
+    <div class="state-container">
+        
+        <nav class="back-links-container">
+            <a href="../index.html#progress-section" class="back-link serif">← Return to Celestial Orbit</a>
+            <a href="../index.html#timeline-section" class="back-link serif">← Return to Timeline</a>
+        </nav>
+
+        <article class="journal-paper">
+            <div class="tape top-center"></div>
+
+            <header class="state-header">
+                <div>
+                    <h1 class="handwritten">Utah</h1>
+                    <p class="serif" style="color: #666; font-style: italic;">📍 Farmington • Howloween Half Marathon</p>
+                </div>
+                <div class="run-number handwritten">Run #04 of 50</div>
+            </header>
+
+            <section class="stats-notebook serif">
+                <div class="stat-item">
+                    <h4>Date Box</h4>
+                    <p>October 25, 2025</p>
+                </div>
+                <div class="stat-item">
+                    <h4>Distance</h4>
+                    <p>13.1 Miles</p>
+                </div>
+                <div class="stat-item">
+                    <h4>Time</h4>
+                    <p>1:59</p>
+                </div>
+            </section>
+
+            <section class="long-story serif">
+                <p>
+                    A very fun Halloween run. We got to dress up in costumes. I went with my dad and Teslyn and her mom. We went to an observatory, a cat cafe, and a dinosaur museum. 
+                </p>
+                <p>
+                    This run was hard in the costume. It got very hot and my stomach was upset after, but it was a lot of fun. 
+                </p>
+    
+            </section>
+
+            <section class="state-gallery">
+                
+                <div class="polaroid-frame tilt-l">
+                    <img src="../assets/images/utah1.png" alt="State Run" class="hero-img">
+                    <p class="handwritten caption">Scooby Doo Costume</p>
+                </div>
+
+                <div class="polaroid-frame tilt-r">
+                    <img src="../assets/images/utah2.png" alt="State Run" class="hero-img">
+                    <div class="coffee-stain"></div>
+                    <p class="handwritten caption">On the podium</p>
+                </div>
+
+            </section>
+        </article>
+
+    </div>
+
+</body>
+</html>
