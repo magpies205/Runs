@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corvids | Running Across America</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+    <style>
+        /* ==========================================================================
+           State Page Specific Styling
+           ========================================================================== */
+        .state-container {
+            max-width: 950px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--dusty-blue);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        .back-link:hover {
+            color: var(--gold);
+        }
+
+        /* Scrapbook Journal Entry Paper Layout */
+        .journal-paper {
+            background: var(--cream);
+            color: var(--charcoal);
+            padding: 3.5rem;
+            border-radius: 4px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            position: relative;
+            margin-bottom: 4rem;
+        }
+
+        .state-header {
+            border-bottom: 2px dashed #d1c9b8;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .state-header h1 {
+            font-size: 4.5rem;
+            color: var(--bg-light-blue);
+            line-height: 0.9;
+        }
+
+        .run-number {
+            font-size: 1.8rem;
+            color: var(--forest-green);
+            transform: rotate(-3deg);
+        }
+
+        /* Trail Stats Grid Box */
+        .stats-notebook {
+            background: #f2ede2;
+            border-left: 5px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .stat-item h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #777;
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-item p {
+            font-size: 1.5rem;
+            color: var(--charcoal);
+            font-weight: bold;
+        }
+
+        .long-story {
+            line-height: 1.8;
+            font-size: 1.15rem;
+            margin-bottom: 2rem;
+            text-align: justify;
+        }
+
+        .long-story p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Polaroid Photo Gallery Grid */
+        .state-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .polaroid-frame {
+            background: white;
+            padding: 15px 15px 50px 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .polaroid-frame img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            filter: sepia(0.1) contrast(0.98);
+        }
+
+        .polaroid-frame .caption {
+            position: absolute;
+            bottom: 12px;
+            left: 15px;
+            right: 15px;
+            text-align: center;
+            font-size: 1.5rem;
+            color: #444;
+        }
+
+        /* Playful overlapping layout tilts */
+        .tilt-l { transform: rotate(-3deg); }
+        .tilt-r { transform: rotate(2.5deg); }
+        .polaroid-frame:hover { transform: rotate(0deg) scale(1.03); z-index: 5; }
+    </style>
+</head>
+<body>
+
+    <div class="stars-overlay"></div>
+
+    <div class="state-container">
+        
+        <nav class="back-links-container">
+            <a href="../index.html#home" class="back-link serif">← Return Home</a>
+        </nav>
+          
+
+        <section id="corvid-section" class="corvid-section">
+            <div class="corvid-paper cosmic-border">
+                <div class="corvid-header">
+                    <h2 class="handwritten section-title">Corvid Travels & Encounters 🐦‍⬛</h2>
+                    <p class="section-subtitle serif">Corvid things across my state journeys.</p>
+                </div>
+
+                <div class="corvid-grid">
+                    <article class="corvid-card">
+                        <div class="tape top-center"></div>
+                        <h3 class="handwritten">Raven's Manor 🍷</h3>
+                        <p class="serif corvid-location">📍 Portland, OR</p>
+                        <p class="serif entry-text">
+                            A haunted restaurant and bar. Very cool! Raven things everywhere and spooky theme. 
+                    </article>
+
+                    <article class="corvid-card">
+                        <div class="tape top-left"></div>
+                        <h3 class="handwritten">Evening Roost Spotting 🌆</h3>
+                        <p class="serif corvid-location">📍 Seattle, WA</p>
+                        <p class="serif entry-text">
+                            Went to watch the crows fly across the water to roost for the night. Very cool. Not as many crows as there could be because it was July. Witnessed crow happy hour!
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="state-gallery">
+            <div class="polaroid-frame tilt-l">
+                <div class="tape top-center"></div>
+                <img src="../assets/images/corvid1.jpeg" alt="Crow at sunset">
+                <p class="caption handwritten">Dusk Crow Roosting 🌆</p>
+            </div>
+
+            <div class="polaroid-frame tilt-r">
+                <div class="tape top-right"></div>
+                <img src="../assets/images/corvid2.jpeg" alt="Raven's Manor">
+                <p class="caption handwritten">Powell's Books 🪶 </p>
+            </div>
+
+            <div class="polaroid-frame tilt-l">
+                <img src="../assets/images/corvid3.jpeg" alt="Raven feather">
+                <p class="caption handwritten">Raven's Manor 🍷</p>
+            </div>
+
+            <div class="polaroid-frame tilt-r">
+                <div class="tape top-left"></div>
+                <img src="../assets/images/corvid4.jpeg" alt="Crow perched">
+                <p class="caption handwritten">Morning Visitors 🥜</p>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
+       
